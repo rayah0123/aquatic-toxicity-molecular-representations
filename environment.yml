@@ -1,0 +1,17 @@
+name: aquatic-toxicity-representations
+channels:
+  - conda-forge
+  - pytorch
+dependencies:
+  - python
+  - numpy
+  - pandas
+  - scipy
+  - scikit-learn
+  - rdkit
+  - matplotlib
+  - pyarrow
+  - pytorch
+  - pip
+  - pip:
+      - torch-geometric
