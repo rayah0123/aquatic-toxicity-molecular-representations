@@ -1,6 +1,6 @@
 # Aquatic toxicity molecular-representation code
 
-Code accompanying the manuscript **Comparative Evaluation of Molecular Representations for Aquatic Ecotoxicity Prediction: Fingerprints, Molecular Graphs, and Similarity Graphs**.
+Code accompanying the manuscript **Comparative Evaluation of Molecular Representations and Similarity-Based Inter-Chemical Relationships for Aquatic Ecotoxicity Prediction**.
 
 ## Scope
 
