@@ -1,0 +1,30 @@
+{
+  "status": "Rules fixed before computing subgroup error summaries; exploratory post-review analysis, not preregistration",
+  "primary_comparison": "original unweighted k10 versus descriptor-only",
+  "datasets": ["TEST Daphnia", "ADORE"],
+  "scope_reason": "Verified SMILES-to-prediction mapping available for these two datasets in neighbor_results; no unverified mapping used for fathead minnow",
+  "minimum_group_n_per_split": 10,
+  "minimum_complement_n_per_split": 10,
+  "minimum_eligible_splits_for_summary": 3,
+  "consistent_direction_requirement": "All five splits eligible and same sign of mean delta; descriptive, not statistical significance",
+  "primary_measure": "mean over chemicals of mean absolute error across five model seeds; delta = G2 minus descriptor-only",
+  "secondary_measures": ["median per-chemical delta", "fraction of chemicals with negative delta", "mean seed-specific RMSE", "group minus complement delta", "mean selected-neighbor similarity"],
+  "sensitivity": "All nine graph settings; report full results rather than select favorable settings",
+  "groups_overlap": true,
+  "mechanistic_interpretation": false,
+  "patterns": {
+    "aromatic": "[a]",
+    "carbon_bound_halogen": "[#6]-[F,Cl,Br,I]",
+    "phenolic_OH": "[c]-[O;H1]",
+    "aliphatic_alcohol_OH": "[C;X4]-[O;H1]",
+    "carboxylic_acid_or_carboxylate": "[C;X3](=[O;X1])-[O;H1,-1]",
+    "ester": "[C;X3](=[O;X1])-[O;X2]-[#6]",
+    "amide": "[C;X3](=[O;X1])-[N]",
+    "nitro": "[N+](=[O])-[O-]",
+    "phosphorus_containing": "[#15]",
+    "sulfur_containing": "[#16]"
+  },
+  "structure_handling": "Parse supplied SMILES using RDKit default sanitization; no salt stripping, tautomer normalization, neutralization or restandardization. Structural flags apply to supplied molecular representation. Canonical SMILES used only to audit identity, not to change prediction joins.",
+  "report_all_groups": true,
+  "inferential_tests": "None. Overlapping groups and repeated chemicals across scaffold splits are dependent. No claim of chemical-class causal effects."
+}

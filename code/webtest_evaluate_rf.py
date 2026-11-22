@@ -1,41 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-webtest_evaluate_rf.py
+"""Evaluate fixed WebTEST random-forest baselines on held-out structural
+TEST partitions.
 
-Frozen TEST evaluation for the already-fixed WebTEST RF baselines.
-
-Models
-------
-1) Morgan-RF
-   - Count Morgan radius=4, 2048 dimensions, chirality=False
-2) Descriptor-RF
-   - full RDKit 2D descriptor pool
-   - TRAIN-only preprocessing:
-       non-finite -> NaN
-       drop TRAIN-all-missing columns
-       TRAIN-median imputation
-       drop TRAIN-zero-variance columns
-
-Frozen RF configuration
------------------------
-n_estimators=500
-max_depth=None
-min_samples_leaf=1
-max_features=1.0
-bootstrap=True
-model seeds = [42,123,777,2025,3407]
-
-IMPORTANT
----------
-- This script does NOT tune anything.
-- Validation metrics are NOT used for model selection here.
-- Each RF is refit with the exact frozen TRAIN partition/configuration/seed used
-  in validation, then applied once to the frozen TEST partition.
-- TEST never enters descriptor preprocessing or model fitting.
-- One split_seed x model_seed x model task is checkpointed atomically.
-- Re-running the same command skips completed tasks and resumes remaining work.
-"""
+Models: Count Morgan RF (radius 4, 2048 dimensions, no chirality) and
+TRAIN-preprocessed RDKit descriptor RF (TRAIN-only missingness filtering,
+median imputation, and constant-column filtering).
+RF: 500 trees, max_features=1.0, min_samples_leaf=1,
+bootstrap=True, unrestricted depth; five model seeds.
+Refit on the fixed TRAIN partition with the validation configuration;
+then evaluate TEST without using it for preprocessing or model selection.
+Tasks are checkpointed independently and can be resumed."""
 
 from __future__ import annotations
 

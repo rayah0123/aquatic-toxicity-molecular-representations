@@ -1,45 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-rf_baselines.py
+"""Evaluate validation-only random-forest and train-mean/median baselines.
 
-Purpose
--------
-Random-forest validation baseline.
-
-Using the SAME 316-chemical modeling table and the SAME frozen structural splits,
-evaluate validation-only baselines:
-
-  1) Train-mean baseline
-  2) Train-median baseline
-  3) Morgan-RF
-     - Count Morgan, radius=4, 2048 dimensions, chirality=False
-  4) RDKit-descriptor-RF
-     - full RDKit descriptor pool
-     - ALL data-dependent preprocessing fit on TRAIN only
-       * non-finite -> NaN
-       * drop train-all-missing columns
-       * median impute with TRAIN medians
-       * drop train-zero-variance columns
-
-RF configuration is deliberately NOT tuned here:
-  n_estimators=500
-  max_depth=None
-  min_samples_leaf=1
-  max_features=1.0
-  bootstrap=True
-
-Five RF initialization seeds are used by default. Primary summaries first average
-model seeds WITHIN each structural split, then summarize across the 5 structural
-splits, matching the hierarchical summary policy.
-
-IMPORTANT
----------
-- Frozen TEST is NEVER predicted or scored.
-- Validation is used only for model assessment.
-- This script does not change splits, targets, K, or GNN architecture.
-- If an optional reference G2 summary is supplied, it is appended to a read-only comparison table without rerunning G2.
-"""
+On the fixed 316-chemical table and structural splits, compare Count Morgan
+(radius 4, 2048 dimensions, no chirality) and RDKit descriptor RF models.
+Descriptor preprocessing (missing-column filtering, median imputation,
+constant-column filtering) is fitted on TRAIN only.
+RF: 500 trees, max_features=1.0, min_samples_leaf=1,
+bootstrap=True, unrestricted depth; five model seeds.
+Average model seeds within each split before summarizing across splits.
+No held-out TEST predictions or metrics are produced."""
 
 from __future__ import annotations
 

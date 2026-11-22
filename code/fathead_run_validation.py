@@ -1,13 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-fathead_run_validation.py
-
-Validation-only production runner for the frozen Fathead-minnow robustness
-experiment. It reuses the Daphnia-frozen representation/model specifications.
-
-NO frozen TEST metrics are evaluated by this runner.
-"""
+"""Run validation-only experiments for the fixed fathead-minnow endpoint.
+Uses the same representation and model specifications as the Daphnia pipeline.
+Held-out TEST metrics are not evaluated."""
 
 from __future__ import annotations
 

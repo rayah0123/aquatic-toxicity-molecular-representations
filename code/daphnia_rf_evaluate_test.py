@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-daphnia_rf_evaluate_test.py
+"""Evaluate Morgan and RDKit-descriptor random-forest models on the
+Daphnia held-out TEST partitions.
 
-Frozen TEST evaluation for already-frozen RF representations:
-- Morgan-RF
-- Descriptor-RF
-
-This script imports rf_baselines_validation and reuses its exact
-representation builders, TRAIN-only descriptor preprocessing, RF factory,
-split loader, and regression metrics. No RF hyperparameter tuning occurs here.
-"""
+Uses rf_baselines for representation construction, training-only preprocessing,
+model configuration, and regression metrics. No hyperparameter tuning."""
 
 from __future__ import annotations
 

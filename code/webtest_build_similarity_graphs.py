@@ -1,33 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-webtest_build_similarity_graphs.py
+"""Construct exact, strictly inductive WebTEST Top-10 Tanimoto graph assets.
 
-Build CURRENT WebTEST-Daphnia exact strict-inductive K=10 Tanimoto assets.
-
-Scientific specification is unchanged:
-- Count Morgan radius=4, fpSize=2048, includeChirality=False
-- exact Tanimoto
-- K=10
-- similarity > 0
-- TRAIN: each TRAIN chemical selects Top-10 TRAIN neighbors excluding self
-- TRAIN topology: undirected UNION of directed selections, duplicate pair=max score
-- VAL/TEST: TRAIN -> QUERY only; no QUERY -> TRAIN, no QUERY <-> QUERY
-
-Implementation acceleration:
-- reuse reference exact global Top-50 cache ONLY when exact containment is guaranteed
-- otherwise recompute exact similarities against CURRENT TRAIN bank
-- no approximate neighbor is accepted
-
-Outputs include:
-- exact directed Top10 selections for TRAIN / VAL / TEST
-- undirected TRAIN union
-- graph component/LCC/degree QC
-- neighborhood-density QC
-- cache-vs-exact-fallback provenance
-
-No model fitting.
-"""
+Count Morgan: radius 4, 2048 dimensions, no chirality; positive similarity.
+TRAIN edges: Top-10 TRAIN neighbors per compound, excluding self; use the
+undirected union with maximum duplicate-pair similarity.
+Query edges: TRAIN to VAL/TEST only, with no reverse/query-query edges.
+Use the precomputed exact Top-50 cache only where it guarantees exact Top-10
+recovery; otherwise compute exact similarity against the current TRAIN set.
+Output graph edges and topology/neighborhood quality-control records.
+No model fitting occurs."""
 
 from pathlib import Path
 import json

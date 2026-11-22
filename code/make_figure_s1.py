@@ -1,24 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-make_figure_s1.py
+"""Generate the supplementary empirical cumulative distribution functions
+(ECDFs) of the T10 similarity values for individual query/split records.
 
-Create a supplementary ECDF of T10 similarity from the structural-neighborhood characterization
-query-level structural-neighborhood characterization.
-
-Scientific unit shown
----------------------
-Each ECDF uses query-split T10 observations from the structural-neighborhood characterization output.
-No model fitting, graph modification, threshold optimization, toxicity label,
-or prediction is used.
-
-Expected input
---------------
-01_per_query_Top10_similarity.csv
-produced by characterize_top10_similarity.py
-
-Run from anywhere inside the project, or specify --input explicitly.
-"""
+Input: 01_per_query_Top10_similarity.csv, produced by
+characterize_top10_similarity.py. No model fitting or threshold tuning."""
 from __future__ import annotations
 import argparse
 from pathlib import Path

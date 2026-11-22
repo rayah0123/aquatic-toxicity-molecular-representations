@@ -1,58 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-evaluate_six_descriptor_rf.py
+"""Evaluate a matched six-descriptor random-forest baseline across Daphnia,
+ADORE, fathead minnow, and WebTEST.
 
-Matched conventional RF control for the frozen six-descriptor set molecular feature set.
-
-Scientific purpose
-------------------
-Add a conventional RF baseline using the SAME six molecular variables used as
-node attributes by the frozen inter-chemical G2 / non-relational neural pair:
-
-    MolLogP
-    MolWt
-    TPSA
-    NumHAcceptors
-    NumHDonors
-    NumRotatableBonds
-
-This completes the controlled comparison:
-    six-descriptor RF
-    six-descriptor set non-relational neural control
-    six-descriptor set + inter-chemical structural-similarity graph
-
-The script DOES NOT:
-- change six-descriptor set
-- select descriptors from toxicity
-- tune RF hyperparameters
-- change structural splits
-- tune G2
-- rebuild any G2 graph
-- use TEST/external outcomes in fitting
-
-RF specification is the already-used fixed RF specification:
-    n_estimators=500
-    max_depth=None
-    min_samples_leaf=1
-    max_features=1.0
-    bootstrap=True
-
-Evaluation contexts
--------------------
-1) Daphnia frozen structural TEST
-2) ADORE independent Daphnia external set
-   - one RF refit per Daphnia structural split/model seed using TRAIN only
-3) Fathead frozen structural TEST
-4) WebTEST frozen structural TEST
-
-Defensive execution
--------------------
-- One split_seed x model_seed x context task = one atomic checkpoint.
-- Prediction arrays are saved immediately.
-- Re-running skips completed tasks.
-- Existing frozen model outputs are never modified.
-"""
+Descriptors: MolLogP, MolWt, TPSA, NumHAcceptors, NumHDonors,
+NumRotatableBonds. All data-dependent preprocessing uses TRAIN only.
+Use the fixed RF configuration (500 trees, max_features=1.0,
+min_samples_leaf=1, bootstrap=True, unrestricted depth).
+Each context/split/seed task saves its predictions separately; existing
+model outputs are not modified. TEST/external outcomes are not used for fitting."""
 
 from __future__ import annotations
 

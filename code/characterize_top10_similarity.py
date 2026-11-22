@@ -1,46 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-characterize_top10_similarity.py
+"""Characterize the exact Top-10 Tanimoto similarities of training neighbors
+across Daphnia TEST, ADORE, fathead minnow, and WebTEST.
 
-Structural QC only for the already-frozen G2 graph definition.
-
-Question
---------
-Does fixed Top-K=10 select neighborhoods of comparable absolute structural
-similarity across Daphnia TEST, ADORE external, Fathead TEST, and the revised
-WebTEST surrogate regime?
-
-IMPORTANT
----------
-- NO model fitting
-- NO retraining
-- NO graph modification
-- NO threshold optimization
-- NO toxicity labels used
-- NO prediction values used
-- NO TEST outcome used
-
-This script only characterizes the absolute Tanimoto similarity of the
-TRAIN neighbors that would be / were selected under the frozen G2 policy:
-
-    Count Morgan radius=4, fpSize=2048, includeChirality=False
-    exact Tanimoto
-    Top-K=10
-    similarity > 0
-    strict inductive TRAIN -> QUERY
-
-For Daphnia TEST, Fathead TEST, and ADORE external, exact TRAIN->QUERY
-similarities are recomputed from the frozen data/split assets.
-For WebTEST, the already-created exact WebTEST TEST-to-TRAIN Top-10 assets are
-read directly to avoid recomputing the 119,276-chemical search.
-
-Interpretation boundary
------------------------
-The descriptive thresholds (0.2, 0.3, 0.4, 0.5) are NOT model thresholds.
-They are used only to describe neighborhood strength and MUST NOT be used
-to retune G2 after frozen TEST results have been observed.
-"""
+Count Morgan fingerprints: radius 4, 2048 dimensions, no chirality.
+Use strictly inductive TRAIN-to-query edges and positive similarities.
+The WebTEST exact-neighbor assets are read from the saved records.
+Similarity cutoffs (0.2, 0.3, 0.4, 0.5) are descriptive only;
+they are not used to retune the trained G2 models."""
 
 from __future__ import annotations
 

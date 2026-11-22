@@ -1,28 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-webtest_train_g2.py
+"""Train the fixed 500-epoch WebTEST GraphSAGE comparison on TRAIN/VAL only.
 
-Validation-only production training for revised WebTEST Daphnia large-N regime.
-
-Scientific specification is inherited unchanged from the frozen G2 specification:
-- six-descriptor set node X
-- TRAIN-only preprocessing
-- target = -log10(LC50 mol/L), TRAIN-only z-score for optimization
-- Controlled GraphSAGE: hidden=128, 2 layers, dropout=.30
-- Adam lr=1e-3, weight_decay=1e-4
-- epochs max=500, patience=50
-- conditions:
-    descriptor_self
-    descriptor_tanimoto_K10 (unweighted)
-- 5 structural splits x 5 model initialization seeds
-- validation only; TEST is NOT evaluated
-
-Graph topology is read from exact precomputed Top-10 assets.
-No Tanimoto graph is rebuilt here.
-
-Saves best validation-selected model bundle for later frozen TEST evaluation.
-"""
+Node features: six molecular descriptors, preprocessed on TRAIN.
+Target: -log10(LC50 mol/L), standardized using TRAIN statistics.
+Two-layer GraphSAGE (128 hidden units, dropout 0.3), Adam (lr=1e-3,
+weight_decay=1e-4), patience 50.
+Conditions: descriptor-only and unweighted Top-10 Tanimoto G2.
+Five structural splits and five model seeds. Uses saved exact graph assets;
+no held-out TEST evaluation."""
 
 from __future__ import annotations
 

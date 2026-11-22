@@ -1,27 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-aggregate_manuscript_metrics.py
+"""Aggregate metrics from the saved TEST Daphnia, ADORE external, fathead minnow,
+and WebTEST prediction records.
 
-Aggregation and quality checks for the manuscript results.
-
-Purpose
--------
-1) Collect RMSE, MAE, R2, Pearson, Spearman, and prediction bias from the
-   already-frozen Daphnia TEST, ADORE external, Fathead TEST, and WebTEST runs.
-2) Apply one common hierarchical summary:
-      model seeds -> mean within each structural split
-      structural splits -> mean / SD / median across 5 splits
-3) Compare G2 with the matched self-only condition on the same structural splits.
-4) Export manuscript-review tables without fitting, tuning, or selecting models.
-
-This script does NOT:
-- fit any model
-- tune any model
-- change any split
-- select a model using TEST/external performance
-- modify any existing frozen result file
-"""
+For each structural split, average across model seeds before summarizing the
+five splits. Report G2 and descriptor-only comparisons on matched splits.
+This script reads existing evaluation records without model fitting or selection."""
 
 from __future__ import annotations
 

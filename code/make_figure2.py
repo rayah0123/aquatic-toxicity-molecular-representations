@@ -1,60 +1,17 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-make_figure2.py
+"""Generate Figure 2 from the saved splitwise G2-versus-descriptor-only metrics.
 
-Main Figure 2 for the aquatic-toxicity manuscript.
+Each point represents one structural split after averaging five model seeds.
+Diamonds and whiskers show the mean and SD across five splits.
+Positive differences indicate better G2 performance:
+RMSE/MAE = descriptor-only minus G2;
+R2/Pearson/Spearman = G2 minus descriptor-only.
 
-Purpose
--------
-Show the incremental contribution of inter-chemical structural connectivity
-(G2) relative to Descriptor-only GraphSAGE across four evaluation contexts
-and five performance metrics.
-
-Scientific unit
----------------
-Each small open circle = one structural split, after the metric was first
-averaged across five model seeds within that structural split.
-
-Filled diamond + horizontal whisker = mean +/- SD across the five
-structural-split means.
-
-No model fitting/retraining is performed.
-No graph or hyperparameter is changed.
-No predictions are averaged in this script.
-
-Direction convention
---------------------
-All differences are signed so that:
-
-    positive  = G2 better
-    zero      = no within-split difference
-    negative  = Descriptor-only GraphSAGE better
-
-RMSE / MAE:
-    Descriptor-only - G2
-
-R2 / Pearson / Spearman:
-    G2 - Descriptor-only
-
-Expected input
---------------
-05_G2_vs_self_splitwise_all_metrics.csv
-
-Outputs
--------
-Figure2_relational_effect.png
-Figure2_relational_effect.pdf
-Figure2_relational_effect.svg
-Figure2_plotting_data.csv
-Figure2_summary.csv
-Figure2_caption_draft.txt
-
-Run
----
-python make_figure2.py --input <splitwise_metrics.csv> --outdir <output_dir>
-"""
+Input: 05_G2_vs_self_splitwise_all_metrics.csv
+Usage: python make_figure2.py --input <splitwise_metrics.csv> --outdir <output_dir>
+No models are fitted and no predictions are averaged by this plotting script."""
 
 from __future__ import annotations
 

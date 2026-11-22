@@ -1,28 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-webtest_run_g1.py
+"""Evaluate G1 on the fixed WebTEST cohort and structural splits using
+the established G1 architecture and hyperparameters.
 
-Complete the missing revised-WebTEST G1 benchmark using the already-fixed
-the frozen G1 production specification.
-
-Scientific status
------------------
-- G1 representation/model family is NOT newly tuned here.
-- Uses the frozen G1 definition and hyperparameters.
-- Uses the already-frozen revised WebTEST cohort and structural splits.
-- Validation is run first (5 structural splits x 5 model seeds).
-- Frozen TEST is evaluated only after all 25 validation bundles exist.
-- Other revised-WebTEST TEST results had already been observed before G1 was
-  added; that late-addition provenance is recorded explicitly.
-- Do not tune G1 after seeing this TEST result.
-
-Resume behavior
----------------
-- Graph asset is reused if already complete.
-- Validation runner is called with --skip_existing.
-- If validation is interrupted, rerun the same command.
-"""
+Run 5 structural splits by 5 model seeds for validation; evaluate held-out
+TEST only after all 25 model bundles are available. Graph assets and completed
+validation runs may be reused.
+This G1 comparison followed inspection of other WebTEST TEST results;
+G1 is not tuned using those results."""
 
 from __future__ import annotations
 
